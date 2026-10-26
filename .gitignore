@@ -1,0 +1,4 @@
+results/
+*.asv
+*.log
+.DS_Store

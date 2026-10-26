@@ -1,0 +1,14 @@
+recording,quantity,value
+headlight_dynamic,n_events,13256812
+headlight_dynamic,duration_s,3.599743
+headlight_dynamic,carrier_frequency_Hz,11.04533824
+headlight_dynamic,complete_carrier_cycles,39
+headlight_dynamic,phase_folded_rate_modulation,0.2436979594
+headlight_dynamic,rate_minimum_phase_cycle,0.8203125
+headlight_dynamic,carrier_frequency_hand_excluded_Hz,11.05161947
+headlight_static,n_events,8736357
+headlight_static,duration_s,5.331969
+headlight_static,carrier_frequency_Hz,10.99009271
+headlight_static,complete_carrier_cycles,58
+headlight_static,phase_folded_rate_modulation,0.485772429
+headlight_static,rate_minimum_phase_cycle,0.4921875
