@@ -93,6 +93,3 @@ publication details are available.
 
 See LICENSE: data are distributed under CC BY 4.0, source files under the
 MIT License, and the P-files under the demo-use terms stated there.
-
-Banglei Guan, National University of Defense Technology  
-guanbanglei12@nudt.edu.cn
