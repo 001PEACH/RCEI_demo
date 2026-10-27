@@ -1,4 +1,4 @@
-RCEI demonstration release (v0.1)
+RCEI demonstration release (v1.0)
 Copyright (c) 2026 Jing Tao, Pengju Sun, Banglei Guan, Taihang Lei, Yang Shang and Qifeng Yu
 
 This repository contains three kinds of material with different terms.
@@ -29,7 +29,6 @@ This repository contains three kinds of material with different terms.
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 
-3. Protected core functions (the .p files in core/)
+3. Executable core functions (the .p files in core/)
    You may use these files free of charge to run this demonstration and to
    reproduce the reported results, for academic and non-commercial purposes.
-   Redistribution in modified form and reverse engineering are not permitted.

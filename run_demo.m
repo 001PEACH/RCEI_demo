@@ -1,8 +1,14 @@
 function run_demo
-% RUN_DEMO  RCEI demonstration: carrier frequency and carrier phase from events.
+% RUN_DEMO  RCEI demonstration: carrier frequency, carrier phase and reversal
+%           anchors from events.
 %
-% Runs on the two headlight recordings in .\data and writes figures and a
-% summary table to .\results. See README.md for what each output shows.
+% Part 1 uses the two headlight recordings in .\data (frequency estimation,
+% phase folding and the hand-corridor cross-check). Part 2 uses a 3-s window
+% of the reciprocal-drive recording in .\data\drive_reciprocal and detects the
+% reversal valleys that anchor the carrier phase.
+%
+% Figures, MAT results and summary.csv are written to .\results. See README.md
+% for what each output shows.
 %
 % Requirements: MATLAB R2021b or later, no additional toolboxes.
 
@@ -144,6 +150,59 @@ for s = 1:numel(seqs)
         summary(end+1, :) = {seqs(s).name, 'carrier_frequency_hand_excluded_Hz', fEx}; %#ok<SAGROW>
     end
 end
+
+% ---------------------------------------------------------------------------
+% Part 2. Reversal-valley anchors of the reciprocal carrier (main-text Fig. 3,
+% Supplementary Section 2.6 and Eq. S15).
+% ---------------------------------------------------------------------------
+cfg.drive_nominal_Hz = 25.0;  % commanded carrier frequency of this recording
+cfg.drive_band_rel = 0.15;    % search band: nominal frequency +/- 15%
+cfg.anchor_bins = 40;         % phase bins of the folded event rate
+
+fprintf('\n== Reciprocal drive, marker scene (3-s window) ==\n');
+ev = rcei_load_events(fullfile(here, 'data', 'drive_reciprocal'));
+[keepEv, pxRep] = rcei_pixel_filter(ev.x, ev.y);
+t_s = ev.t_s(keepEv);
+fprintf('Loaded %d events over %.4f s; %d hot pixels removed, %d events kept.\n', ...
+    numel(ev.t_s), max(ev.t_s), pxRep.n_hot_pixels, numel(t_s));
+
+band = cfg.drive_nominal_Hz * [1 - cfg.drive_band_rel, 1 + cfg.drive_band_rel];
+[fHz, ~] = rcei_carrier_frequency(t_s, 'Band', band, 'BinWidth', cfg.bin_width_s);
+[anc, aInfo] = rcei_reversal_anchors(t_s, fHz, 'NumBins', cfg.anchor_bins);
+fprintf('Carrier frequency: %.3f Hz\n', fHz);
+fprintf('Reversal valleys at %.3f pi and %.3f pi (prominence %.3f and %.3f)\n', ...
+    anc.valley_phase_pi, anc.prominence);
+fprintf('%d reversal anchors over %d complete cycles\n', numel(anc.times_s), aInfo.num_complete_cycles);
+
+fig4 = figure('Visible', 'off', 'Color', 'w', 'Position', [60 60 1300 440]);
+subplot(1, 2, 1);
+plot(aInfo.bin_phase_pi, aInfo.profile, '-', 'Color', [0.7 0.7 0.7]); hold on;
+plot(aInfo.bin_phase_pi, aInfo.smoothed, 'k-', 'LineWidth', 1.2);
+yl = ylim;
+for v = 1:anc.num_valleys
+    plot(anc.valley_phase_pi(v)*[1 1], yl, 'r--');
+end
+xlim([0 2]); xlabel('Carrier phase (\pi rad)'); ylabel('Event rate (/ mean)'); box off;
+title(sprintf('Folded event rate at %.3f Hz, reversal valleys marked', fHz));
+subplot(1, 2, 2);
+nShow = min(numel(anc.times_s), 11);
+tShow = linspace(anc.times_s(1), anc.times_s(nShow), 800);
+plot((tShow - tShow(1))*1e3, pchip(anc.times_s, anc.phase_rad, tShow)/pi, 'k-', 'LineWidth', 1.2); hold on;
+plot((anc.times_s(1:nShow) - tShow(1))*1e3, anc.phase_rad(1:nShow)/pi, 'ro', 'MarkerFaceColor', 'r');
+xlabel('Time from first anchor (ms)'); ylabel('Carrier phase (\pi rad)'); box off;
+legend({'PCHIP through anchors', 'Reversal anchors'}, 'Location', 'northwest');
+title('Carrier phase through successive reversal anchors');
+print(fig4, fullfile(outDir, 'drive_reciprocal_reversal_anchors.png'), '-dpng', '-r150');
+close(fig4);
+
+save(fullfile(outDir, 'drive_reciprocal_reversal_anchors.mat'), 'fHz', 'anc', 'aInfo', 'pxRep');
+summary(end+1, :) = {'drive_reciprocal', 'n_events', numel(ev.t_s)};
+summary(end+1, :) = {'drive_reciprocal', 'n_events_kept', numel(t_s)};
+summary(end+1, :) = {'drive_reciprocal', 'carrier_frequency_Hz', fHz};
+summary(end+1, :) = {'drive_reciprocal', 'reversal_valleys', anc.num_valleys};
+summary(end+1, :) = {'drive_reciprocal', 'valley_1_phase_pi', anc.valley_phase_pi(1)};
+summary(end+1, :) = {'drive_reciprocal', 'valley_2_phase_pi', anc.valley_phase_pi(2)};
+summary(end+1, :) = {'drive_reciprocal', 'reversal_anchors', numel(anc.times_s)};
 
 fid = fopen(fullfile(outDir, 'summary.csv'), 'w');
 if fid < 0

@@ -12,3 +12,10 @@ headlight_static,carrier_frequency_Hz,10.990,0.001,demo only
 headlight_static,complete_carrier_cycles,58,0,demo only
 headlight_static,phase_folded_rate_modulation,0.49,0.01,demo only
 headlight_static,rate_minimum_phase_cycle,0.49,0.03,demo only
+drive_reciprocal,n_events,28254999,0,Main-text Fig. 3
+drive_reciprocal,n_events_kept,19843109,0,Main-text Fig. 3
+drive_reciprocal,carrier_frequency_Hz,25.000,0.010,Supplementary Section 2.6
+drive_reciprocal,reversal_valleys,2,0,Main-text Fig. 3
+drive_reciprocal,valley_1_phase_pi,0.475,0.026,Main-text Fig. 3
+drive_reciprocal,valley_2_phase_pi,1.325,0.026,Main-text Fig. 3
+drive_reciprocal,reversal_anchors,148,2,demo only

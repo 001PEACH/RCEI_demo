@@ -1,0 +1,41 @@
+{
+  "title": "RCEI: event data and MATLAB demonstration for self-referenced optical carrier event imaging",
+  "upload_type": "software",
+  "version": "v1.0",
+  "description": "Event recordings and a MATLAB demonstration accompanying the manuscript 'Self-referenced optical carrier enables joint static and dynamic event imaging'. The release contains two headlight recordings with manual palm-centre annotations, a 3-s window of the reciprocal-drive recording, carrier-frequency estimation and phase folding, and reversal-valley detection with phase interpolation through the reversal anchors. Data are distributed under CC BY 4.0 and source code under the MIT License. See LICENSE for the terms of each component.",
+  "creators": [
+    {
+      "name": "Tao, Jing",
+      "affiliation": "College of Aerospace Science and Engineering, National University of Defense Technology"
+    },
+    {
+      "name": "Sun, Pengju",
+      "affiliation": "College of Aerospace Science and Engineering, National University of Defense Technology"
+    },
+    {
+      "name": "Guan, Banglei",
+      "affiliation": "College of Aerospace Science and Engineering, National University of Defense Technology"
+    },
+    {
+      "name": "Lei, Taihang",
+      "affiliation": "College of Aerospace Science and Engineering, National University of Defense Technology"
+    },
+    {
+      "name": "Shang, Yang",
+      "affiliation": "College of Aerospace Science and Engineering, National University of Defense Technology"
+    },
+    {
+      "name": "Yu, Qifeng",
+      "affiliation": "College of Aerospace Science and Engineering, National University of Defense Technology"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "keywords": [
+    "event camera",
+    "neuromorphic imaging",
+    "optical carrier",
+    "static and dynamic imaging",
+    "carrier phase"
+  ],
+  "access_right": "open"
+}
