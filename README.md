@@ -140,14 +140,11 @@ are documented in the function header.
 
 ## Updates and maintenance
 
-We will continue to organize supporting research materials for public release
-and maintain this repository. Further updates will be made available here as
-the materials are prepared.
+This repository provides an initial demonstration of RCEI. The associated manuscript is currently under review. We plan to progressively expand the documentation and release additional supporting materials following acceptance.
 
 ## Citation and license
 
-Please cite the manuscript title and this repository until the paper's
-publication details are available.
+If you use this repository, please cite RCEI_demo. The associated manuscript is currently under review, and its formal citation will be added upon publication.
 
 See [LICENSE](LICENSE): data are distributed under CC BY 4.0, source files
 under the MIT License, and the P-files under the demo-use terms stated there.
